@@ -1,36 +1,36 @@
-from time import sleep
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from pages.github_page import GitHubPage
+from pages.testlink_page import TestlinkPage
 
-# Inicializa o driver e abre o navegador no endereço da aplicação
-driver = webdriver.Firefox()
-driver.implicitly_wait(10)
-driver.get('https://testlink.org/')
+tlPage = TestlinkPage()
+gitHubPage = GitHubPage()
 
-## Algumas verificações na página do Testlink
-assert driver.title == "TestLink"
-assert driver.find_element(By.XPATH, '//h1').text == 'TestLink Open Source Test Management'
+##===== Página do TestLink =======##
 
-##Clicar no link para o repositório no github
-linkGit = driver.find_element(By.XPATH, '//a[.=\'Access Git Repository (GitHub)\']')
-linkGit.click()
+tlPage.acessarTestlink()
 
-## Algumas verificações na página do GitHub
-autor = driver.find_element(By.XPATH, '//a[@rel=\'author\']').text
-repositorio = driver.find_element(By.XPATH, '//a[@rel=\'author\']/../../strong/a').text
-# Verificar o autor
+titulo = tlPage.tituloPagina()
+cabecalho = tlPage.encontrarElementoXpath('//h1').text
+
+assert titulo == "TestLink"
+assert cabecalho == 'TestLink Open Source Test Management'
+
+tlPage.clicarRepositorioGit() # Apartir daqui, seremos direcionado para o GitHub
+
+
+##===== Página do GitHub do Projeto =======#
+
+# Algumas verificações na página do GitHub
+autor       = tlPage.encontrarElementoXpath(gitHubPage.XPATH_AUTOR).text
+repositorio = tlPage.encontrarElementoXpath(gitHubPage.XPATH_REPOSITORIO).text
+
 assert autor == 'TestLinkOpenSourceTRMS'
-# Verifica o nome do repositório
 assert repositorio == 'testlink-code'
 
 # Pesquisar a palavra 'Opcional' no GitHub
-pesquisa = driver.find_element(By.XPATH, '//form/label/input[1]')
-pesquisa.send_keys('Opcional')
-pesquisa.send_keys(Keys.RETURN)
-quantRepo = driver.find_element(By.XPATH, '//nav[1]/a/span[@*=\'Code\']').text
+gitHubPage.pesquisar('Opcional')
+quantRepo = gitHubPage.encontrarElementoXpath('//nav[1]/a/span[@*=\'Code\']').text
 
 print("Quantidade de resultados neste repositório: " + quantRepo)
 
 # Fecha o navegador
-driver.close()
+gitHubPage.fecharBrowser()
