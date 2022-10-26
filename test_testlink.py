@@ -17,10 +17,12 @@ linkGit = driver.find_element(By.XPATH, '//a[.=\'Access Git Repository (GitHub)\
 linkGit.click()
 
 ## Algumas verificações na página do GitHub
+autor = driver.find_element(By.XPATH, '//a[@rel=\'author\']').text
+repositorio = driver.find_element(By.XPATH, '//a[@rel=\'author\']/../../strong/a').text
 # Verificar o autor
-assert driver.find_element(By.XPATH, '//a[@rel=\'author\']').text == 'TestLinkOpenSourceTRMS'
+assert autor == 'TestLinkOpenSourceTRMS'
 # Verifica o nome do repositório
-assert driver.find_element(By.XPATH, '//a[@rel=\'author\']/../../strong/a').text == 'testlink-code'
+assert repositorio == 'testlink-code'
 
 # Pesquisar a palavra 'Opcional' no GitHub
 pesquisa = driver.find_element(By.XPATH, '//form/label/input[1]')
@@ -28,9 +30,7 @@ pesquisa.send_keys('Opcional')
 pesquisa.send_keys(Keys.RETURN)
 quantRepo = driver.find_element(By.XPATH, '//nav[1]/a/span[@*=\'Code\']').text
 
-sleep(5)
 print("Quantidade de resultados neste repositório: " + quantRepo)
 
-
-
-# driver.close()
+# Fecha o navegador
+driver.close()
