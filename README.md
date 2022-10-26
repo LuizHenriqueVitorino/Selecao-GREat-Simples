@@ -1,11 +1,11 @@
 # Selecao-GREat-Simples
 Repositório destinado à criação de uma verção mais simples e direta do desafio da seleção da(o) GREat.
 
-**OBS: Uma versão mais robusta deste teste pode ser encontrado no segunte repositório
+**OBS: Uma versão mais robusta deste teste pode ser encontrado no segunte repositório**
 ```md
 https://github.com/LuizHenriqueVitorino/Selecao-GREat
 ```
-**Desafio:
+**Desafio:**
 Implemente um caso de testes automatizado com SELENIUM ou Robot Framework para o seguinte cenário:
 
 1. Acesse a página do Testlink
@@ -18,3 +18,6 @@ https://testlink.org/
 5. (Opcional) Realizar uma pesquisa no GitHub e verificar resultado.
 
 Para este projeto, utilizei apenas a linguagem python com o framework Selenium.
+
+**OBS: Para rodar o teste você deve ir para a raiz do projeto no terminal e digitar:**
+> python3 test_testlink.py
